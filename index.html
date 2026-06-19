@@ -289,6 +289,28 @@
     .history-date { color: #475569; flex-shrink: 0; width: 80px; }
     .history-entry { color: #94a3b8; }
 
+    /* ── SCROLL LOCK ── */
+    .sec-locked {
+      opacity: 0.25;
+      pointer-events: none;
+      user-select: none;
+      filter: blur(1.5px);
+    }
+    .sec3-barrier {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 20px; padding: 14px 20px;
+      background: #1a0808; border: 1px dashed #7f1d1d;
+      border-radius: 10px; font-size: 12px; font-weight: 600; color: #fca5a5;
+    }
+    .sec3-barrier.unlocked { display: none; }
+
+    @keyframes flashGreen {
+      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+      40%  { box-shadow: 0 0 0 6px rgba(34,197,94,0.55); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+    .btn-agree.flash { animation: flashGreen 0.7s ease; }
+
     /* ── AGREE BUTTON ── */
     .btn-agree {
       width: 100%; margin-top: 18px; padding: 13px;
@@ -634,8 +656,13 @@
 
     </div>
 
+    <!-- SCROLL BARRIER -->
+    <div class="sec3-barrier" id="sec3-barrier">
+      🔒 Please agree to the terms in Section 3 to continue
+    </div>
+
     <!-- ── SECTION 4: IO DOCUMENTS ── -->
-    <div class="sec-card" id="sec4">
+    <div class="sec-card sec-locked" id="sec4">
       <div class="sec-header">
         <span class="sec-num n4">4</span>
         <div>
@@ -680,7 +707,7 @@
     </div>
 
     <!-- ── SECTION 5: APPSFLYER SETUP ── -->
-    <div class="sec-card" id="sec5">
+    <div class="sec-card sec-locked" id="sec5">
       <div class="sec-header">
         <span class="sec-num n5">5</span>
         <div>
@@ -719,7 +746,7 @@
     </div>
 
     <!-- ── SECTION 6: REGISTRATION FORM ── -->
-    <div class="sec-card" id="sec6" style="border-color:#1e3a5f; padding-bottom: 0;">
+    <div class="sec-card sec-locked" id="sec6" style="border-color:#1e3a5f; padding-bottom: 0;">
       <div class="sec-header" style="margin-bottom:8px;">
         <span class="sec-num n6">6</span>
         <div>
@@ -841,6 +868,10 @@
             <span class="history-date">2026-06-19</span>
             <span class="history-entry">Section 3: added "I agree" button at bottom. Clicking opens a modal to collect Full Name + Email. On confirm, a green Agreement Confirmed card appears in Section 3 showing Agreed By, Email, and Date &amp; Time. Button disables after submission.</span>
           </li>
+          <li>
+            <span class="history-date">2026-06-19</span>
+            <span class="history-entry">Scroll lock: Sections 4–6 are visually blurred/locked until user agrees to Section 3 terms. A red barrier message sits between Sections 3 and 4. If user tries to scroll past, page snaps back and flashes the agree button. On agreement, all sections unlock and barrier hides.</span>
+          </li>
         </ul>
       </div>
 
@@ -895,6 +926,34 @@
     function scrollTo(id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    let agreed = false;
+
+    function getScrollLimit() {
+      const barrier = document.getElementById('sec3-barrier');
+      const pb = document.querySelector('.progress-bar');
+      const pbH = pb ? pb.offsetHeight : 48;
+      return barrier ? Math.max(0, barrier.offsetTop - pbH - 20) : Infinity;
+    }
+
+    let snapBusy = false;
+    window.addEventListener('scroll', function() {
+      if (agreed || snapBusy) return;
+      const limit = getScrollLimit();
+      if (window.scrollY > limit) {
+        snapBusy = true;
+        window.scrollTo({ top: limit, behavior: 'instant' });
+        const btn = document.querySelector('.btn-agree:not([disabled])');
+        if (btn) {
+          btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          btn.classList.remove('flash');
+          void btn.offsetWidth;
+          btn.classList.add('flash');
+          setTimeout(() => btn.classList.remove('flash'), 800);
+        }
+        setTimeout(() => { snapBusy = false; }, 200);
+      }
+    });
 
     const SECTIONS = ['sec1','sec2','sec3','sec4','sec5','sec6'];
 
@@ -957,10 +1016,17 @@
       card.classList.add('show');
       card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-      document.querySelector('.btn-agree').textContent = '✅ Agreement recorded';
-      document.querySelector('.btn-agree').disabled = true;
-      document.querySelector('.btn-agree').style.opacity = '0.5';
-      document.querySelector('.btn-agree').style.cursor = 'default';
+      const btn = document.querySelector('.btn-agree');
+      btn.textContent = '✅ Agreement recorded';
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      btn.style.cursor = 'default';
+
+      agreed = true;
+      ['sec4','sec5','sec6'].forEach(id => {
+        document.getElementById(id).classList.remove('sec-locked');
+      });
+      document.getElementById('sec3-barrier').classList.add('unlocked');
     }
 
     document.addEventListener('keydown', e => {
