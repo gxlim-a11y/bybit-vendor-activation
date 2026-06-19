@@ -389,6 +389,30 @@
       font-size: 12px; color: #4ade80; font-weight: 600; word-break: break-all;
     }
 
+    /* ── PRE-FILL REMINDER ── */
+    .prefill-box {
+      background: #071f0f; border: 1.5px solid #166534;
+      border-radius: 10px; padding: 14px 16px; margin-bottom: 16px;
+    }
+    .prefill-title {
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.7px; color: #4ade80; margin-bottom: 10px;
+    }
+    .prefill-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 7px; font-size: 12px;
+    }
+    .prefill-row:last-child { margin-bottom: 0; }
+    .prefill-key { color: #475569; width: 110px; flex-shrink: 0; }
+    .prefill-val { color: #e2e8f0; font-weight: 600; flex: 1; }
+    .copy-btn {
+      background: #0f2b1c; border: 1px solid #166534; color: #4ade80;
+      border-radius: 6px; padding: 3px 10px; font-size: 10px; font-weight: 700;
+      cursor: pointer; transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
+    }
+    .copy-btn:hover { background: #166534; }
+    .copy-btn.copied { background: #166534; color: #fff; }
+
     /* ── LOCK BUTTON ── */
     .lock-btn {
       background: none; border: none; cursor: pointer;
@@ -754,6 +778,25 @@
           <div class="sec-sub">Fill in the form below — your submission goes directly into our Bybit tracker</div>
         </div>
       </div>
+      <div class="prefill-box">
+        <div class="prefill-title">Your Section 3 Agreement — enter these in the form below</div>
+        <div class="prefill-row">
+          <span class="prefill-key">Agreed By Name</span>
+          <span class="prefill-val" id="prefillName">—</span>
+          <button class="copy-btn" onclick="copyPrefill('prefillName',this)">Copy</button>
+        </div>
+        <div class="prefill-row">
+          <span class="prefill-key">Agreed Email</span>
+          <span class="prefill-val" id="prefillEmail">—</span>
+          <button class="copy-btn" onclick="copyPrefill('prefillEmail',this)">Copy</button>
+        </div>
+        <div class="prefill-row">
+          <span class="prefill-key">Agreed At</span>
+          <span class="prefill-val" id="prefillDate">—</span>
+          <button class="copy-btn" onclick="copyPrefill('prefillDate',this)">Copy</button>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:#166534;">Paste these into the matching fields at the bottom of the form below.</div>
+      </div>
       <div style="font-size:11px;color:#475569;margin-bottom:16px;padding:0 2px;">
         Each row = one AFPRT or PID entry. If you have multiple entries, submit this form once per entry.
         For questions contact <a href="mailto:gx.lim@bybit.com">gx.lim@bybit.com</a>
@@ -872,6 +915,10 @@
             <span class="history-date">2026-06-19</span>
             <span class="history-entry">Scroll lock: Sections 4–6 are visually blurred/locked until user agrees to Section 3 terms. A red barrier message sits between Sections 3 and 4. If user tries to scroll past, page snaps back and flashes the agree button. On agreement, all sections unlock and barrier hides.</span>
           </li>
+          <li>
+            <span class="history-date">2026-06-19</span>
+            <span class="history-entry">Agreement data linked to Lark Bitable: added "Agreed By Name" (required) and "Agreed Email" (required) columns to tbl2AhoL9JKldwaW and made them visible in form view vew4YaDe3B. Section 6 now shows a green pre-fill reminder box with Copy buttons for name, email, and agreed-at date — user pastes these into the matching Lark form fields on submission.</span>
+          </li>
         </ul>
       </div>
 
@@ -973,6 +1020,16 @@
     window.addEventListener('scroll', updateProgress, { passive: true });
     updateProgress();
 
+    function copyPrefill(id, btn) {
+      const text = document.getElementById(id).textContent;
+      if (!text || text === '—') return;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+      });
+    }
+
     function openAgreeModal() {
       document.getElementById('agreeOverlay').classList.add('show');
       setTimeout(() => document.getElementById('agreeName').focus(), 50);
@@ -1027,6 +1084,11 @@
         document.getElementById(id).classList.remove('sec-locked');
       });
       document.getElementById('sec3-barrier').classList.add('unlocked');
+
+      // Populate Section 6 pre-fill reminder
+      document.getElementById('prefillName').textContent  = name;
+      document.getElementById('prefillEmail').textContent = email;
+      document.getElementById('prefillDate').textContent  = dateStr;
     }
 
     document.addEventListener('keydown', e => {
