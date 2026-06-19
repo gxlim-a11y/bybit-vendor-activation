@@ -459,6 +459,7 @@
             <ul>
               <li>Use of externally purchased KYC services</li>
               <li>Multiple fake or emulated devices abusing reward mechanisms</li>
+              <li>High eFTD volume with no subsequent trading activity</li>
             </ul>
             Such users will be classified as invalid and excluded from billing. A consolidated fraud report is shared at the end of each month and applies to all vendors.
           </div>
@@ -489,11 +490,13 @@
               <span class="restricted-tag">Thailand</span>
               <span class="restricted-tag">Philippines</span>
               <span class="restricted-tag">Canada</span>
+              <span class="restricted-tag">Australia</span>
               <span class="restricted-tag">New Zealand</span>
               <span class="restricted-tag">France</span>
               <span class="restricted-tag">United States</span>
               <span class="restricted-tag">Uzbekistan</span>
-              <span class="restricted-tag">United Kingdom</span>
+              <span class="restricted-tag">Indonesia</span>
+              <span class="restricted-tag">Hong Kong</span>
               <span class="restricted-tag">Japan</span>
             </div>
           </div>
@@ -520,7 +523,8 @@
           </div>
           <div class="ci-body">
             <strong>Signup:</strong> First-touch attribution<br/>
-            <strong>eFTD:</strong> Last-click attribution<br/><br/>
+            <strong>eFTD:</strong> Last-click attribution<br/>
+            <strong>eFTT:</strong> Last-click attribution<br/><br/>
             Once a user signs up under your account or campaign ID, the signup remains attributed to you. Other vendors cannot hijack or redirect this data to claim the eFTD.
           </div>
         </div>
@@ -691,7 +695,7 @@
           </li>
           <li>
             <span class="sum-sec-num n3">3</span>
-            <div class="sum-sec-body"><strong>Key Confirmations</strong> — 6 required items: PID macro string requirement, fraud policy (KYC abuse / fake devices), campaign briefing &amp; launch flow (no launch without written confirmation), restricted markets (11 countries), billing validation (IS Primary Attribution = TRUE &amp; Retargeting = NO), attribution rules (signup = first-touch, eFTD = last-click).</div>
+            <div class="sum-sec-body"><strong>Key Confirmations</strong> — 6 required items: PID macro string requirement, fraud policy (KYC abuse / fake devices / high eFTD no-trade), campaign briefing &amp; launch flow (no launch without written confirmation), restricted markets (13 countries: SG, MY, TH, PH, CA, AU, NZ, FR, US, UZ, ID, HK, JP), billing validation (IS Primary Attribution = TRUE &amp; Retargeting = NO), attribution rules (signup = first-touch; eFTD &amp; eFTT = last-click).</div>
           </li>
           <li>
             <span class="sum-sec-num n4">4</span>
@@ -722,6 +726,10 @@
           <li>
             <span class="history-date">2026-06-19</span>
             <span class="history-entry">Added password-protected Summary tab (this section). Password: 1234. Accessible via lock icon in footer.</span>
+          </li>
+          <li>
+            <span class="history-date">2026-06-19</span>
+            <span class="history-entry">Section 3 (Key Confirmations) updated to match Lark doc changes: (1) Fraud Policy — added "high eFTD volume with no subsequent trading activity" bullet; (2) Restricted Markets — added Australia, Indonesia, Hong Kong; removed United Kingdom (now 13 countries); (3) Attribution Rules — added eFTT: Last-click attribution.</span>
           </li>
         </ul>
       </div>
