@@ -289,6 +289,84 @@
     .history-date { color: #475569; flex-shrink: 0; width: 80px; }
     .history-entry { color: #94a3b8; }
 
+    /* ── AGREE BUTTON ── */
+    .btn-agree {
+      width: 100%; margin-top: 18px; padding: 13px;
+      background: linear-gradient(135deg, #166534, #15803d);
+      border: none; border-radius: 10px; color: #fff;
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.15s; letter-spacing: 0.3px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-agree:hover { opacity: 0.88; }
+
+    /* ── AGREE MODAL ── */
+    .agree-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+      z-index: 998; align-items: center; justify-content: center;
+    }
+    .agree-overlay.show { display: flex; }
+    .agree-box {
+      background: #131b2e; border: 1px solid #334155;
+      border-radius: 14px; padding: 32px 36px; width: 400px;
+    }
+    .agree-box-title { font-size: 16px; font-weight: 700; color: #f8fafc; margin-bottom: 4px; }
+    .agree-box-sub { font-size: 11px; color: #64748b; margin-bottom: 20px; line-height: 1.6; }
+    .agree-field { margin-bottom: 14px; }
+    .agree-field label {
+      display: block; font-size: 10px; font-weight: 700; color: #64748b;
+      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px;
+    }
+    .agree-field input {
+      width: 100%; background: #0f1117; border: 1px solid #334155;
+      border-radius: 8px; padding: 10px 14px; color: #e2e8f0;
+      font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.15s;
+    }
+    .agree-field input:focus { border-color: #22c55e; }
+    .agree-field input.error { border-color: #ef4444; }
+    .agree-err { font-size: 11px; color: #fca5a5; min-height: 16px; margin-bottom: 12px; }
+    .agree-actions { display: flex; gap: 10px; }
+    .agree-submit {
+      flex: 1; padding: 11px;
+      background: linear-gradient(135deg, #166534, #15803d);
+      border: none; border-radius: 8px; color: #fff;
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.15s;
+    }
+    .agree-submit:hover { opacity: 0.88; }
+    .agree-cancel-btn {
+      padding: 11px 18px; background: transparent;
+      border: 1px solid #334155; border-radius: 8px;
+      color: #64748b; font-size: 13px; cursor: pointer; transition: all 0.15s;
+    }
+    .agree-cancel-btn:hover { border-color: #64748b; color: #94a3b8; }
+
+    /* ── AGREEMENT CONFIRMED CARD ── */
+    .agree-confirmed {
+      display: none; margin-top: 16px;
+      background: #052e16; border: 1.5px solid #166534;
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .agree-confirmed.show { display: block; }
+    .agree-confirmed-head {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 700; color: #4ade80; margin-bottom: 12px;
+    }
+    .agree-confirmed-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .agree-confirmed-cell {
+      background: #071f0f; border: 1px solid #166534;
+      border-radius: 8px; padding: 10px 14px;
+    }
+    .agree-confirmed-cell .cell-label {
+      font-size: 9px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.7px; color: #166534; margin-bottom: 4px;
+    }
+    .agree-confirmed-cell .cell-val {
+      font-size: 12px; color: #4ade80; font-weight: 600; word-break: break-all;
+    }
+
     /* ── LOCK BUTTON ── */
     .lock-btn {
       background: none; border: none; cursor: pointer;
@@ -531,6 +609,29 @@
         </div>
 
       </div>
+
+      <button class="btn-agree" onclick="openAgreeModal()">
+        ✅ I have read and agree to all the above terms
+      </button>
+
+      <div class="agree-confirmed" id="agreeConfirmed">
+        <div class="agree-confirmed-head">✅ Agreement Confirmed</div>
+        <div class="agree-confirmed-grid">
+          <div class="agree-confirmed-cell">
+            <div class="cell-label">Agreed By</div>
+            <div class="cell-val" id="confirmedName">—</div>
+          </div>
+          <div class="agree-confirmed-cell">
+            <div class="cell-label">Email</div>
+            <div class="cell-val" id="confirmedEmail">—</div>
+          </div>
+          <div class="agree-confirmed-cell" style="grid-column:1/-1;">
+            <div class="cell-label">Date &amp; Time</div>
+            <div class="cell-val" id="confirmedDate">—</div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- ── SECTION 4: IO DOCUMENTS ── -->
@@ -736,12 +837,37 @@
             <span class="history-date">2026-06-19</span>
             <span class="history-entry">Progress bar (steps 1–6) made sticky + scroll-aware: active step highlights as user scrolls into each section; previous steps show as done (green).</span>
           </li>
+          <li>
+            <span class="history-date">2026-06-19</span>
+            <span class="history-entry">Section 3: added "I agree" button at bottom. Clicking opens a modal to collect Full Name + Email. On confirm, a green Agreement Confirmed card appears in Section 3 showing Agreed By, Email, and Date &amp; Time. Button disables after submission.</span>
+          </li>
         </ul>
       </div>
 
     </div>
 
   </div><!-- /main -->
+
+  <!-- AGREE MODAL -->
+  <div class="agree-overlay" id="agreeOverlay">
+    <div class="agree-box">
+      <div class="agree-box-title">Confirm Your Agreement</div>
+      <div class="agree-box-sub">By submitting, you confirm that you have read and agree to all 6 Key Confirmation points in Section 3.</div>
+      <div class="agree-field">
+        <label>Full Name <span style="color:#ef4444;">*</span></label>
+        <input id="agreeName" type="text" placeholder="e.g. John Smith" autocomplete="name" />
+      </div>
+      <div class="agree-field">
+        <label>Email Address <span style="color:#ef4444;">*</span></label>
+        <input id="agreeEmail" type="email" placeholder="e.g. john@company.com" autocomplete="email" />
+      </div>
+      <div class="agree-err" id="agreeErr"></div>
+      <div class="agree-actions">
+        <button class="agree-submit" onclick="submitAgreement()">Confirm &amp; Agree</button>
+        <button class="agree-cancel-btn" onclick="closeAgreeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <!-- PASSWORD OVERLAY -->
   <div class="pw-overlay" id="pwOverlay">
@@ -787,6 +913,65 @@
 
     window.addEventListener('scroll', updateProgress, { passive: true });
     updateProgress();
+
+    function openAgreeModal() {
+      document.getElementById('agreeOverlay').classList.add('show');
+      setTimeout(() => document.getElementById('agreeName').focus(), 50);
+    }
+
+    function closeAgreeModal() {
+      document.getElementById('agreeOverlay').classList.remove('show');
+      document.getElementById('agreeErr').textContent = '';
+      ['agreeName','agreeEmail'].forEach(id => {
+        document.getElementById(id).classList.remove('error');
+      });
+    }
+
+    function submitAgreement() {
+      const nameEl  = document.getElementById('agreeName');
+      const emailEl = document.getElementById('agreeEmail');
+      const err     = document.getElementById('agreeErr');
+      const name    = nameEl.value.trim();
+      const email   = emailEl.value.trim();
+
+      [nameEl, emailEl].forEach(el => el.classList.remove('error'));
+      err.textContent = '';
+
+      if (!name)  { err.textContent = 'Please enter your full name.';  nameEl.classList.add('error');  return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        err.textContent = 'Please enter a valid email address.';
+        emailEl.classList.add('error'); return;
+      }
+
+      closeAgreeModal();
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })
+                    + ' · ' + now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+
+      document.getElementById('confirmedName').textContent  = name;
+      document.getElementById('confirmedEmail').textContent = email;
+      document.getElementById('confirmedDate').textContent  = dateStr;
+
+      const card = document.getElementById('agreeConfirmed');
+      card.classList.add('show');
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      document.querySelector('.btn-agree').textContent = '✅ Agreement recorded';
+      document.querySelector('.btn-agree').disabled = true;
+      document.querySelector('.btn-agree').style.opacity = '0.5';
+      document.querySelector('.btn-agree').style.cursor = 'default';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && document.getElementById('agreeOverlay').classList.contains('show')) {
+        submitAgreement();
+      }
+    });
+
+    document.getElementById('agreeOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeAgreeModal();
+    });
 
     function openPw() {
       document.getElementById('pwOverlay').classList.add('show');
