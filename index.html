@@ -204,6 +204,96 @@
       color: #fca5a5; font-size: 10px; font-weight: 700;
       padding: 3px 10px; border-radius: 20px;
     }
+
+    /* ── PASSWORD OVERLAY ── */
+    .pw-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+      z-index: 999; align-items: center; justify-content: center;
+    }
+    .pw-overlay.show { display: flex; }
+    .pw-box {
+      background: #131b2e; border: 1px solid #334155;
+      border-radius: 14px; padding: 32px 36px; width: 320px;
+      text-align: center;
+    }
+    .pw-icon { font-size: 32px; margin-bottom: 12px; }
+    .pw-title { font-size: 15px; font-weight: 700; color: #f8fafc; margin-bottom: 4px; }
+    .pw-sub { font-size: 11px; color: #64748b; margin-bottom: 20px; }
+    .pw-input {
+      width: 100%; background: #0f1117; border: 1px solid #334155;
+      border-radius: 8px; padding: 10px 14px; color: #e2e8f0;
+      font-size: 14px; font-family: inherit; outline: none;
+      text-align: center; letter-spacing: 4px; margin-bottom: 8px;
+      transition: border-color 0.15s;
+    }
+    .pw-input:focus { border-color: #3b82f6; }
+    .pw-input.error { border-color: #ef4444; animation: shake 0.3s; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .pw-err { font-size: 11px; color: #fca5a5; height: 16px; margin-bottom: 12px; }
+    .pw-btn {
+      width: 100%; padding: 10px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      border: none; border-radius: 8px; color: #fff;
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .pw-btn:hover { opacity: 0.9; }
+    .pw-cancel {
+      margin-top: 10px; background: none; border: none;
+      color: #475569; font-size: 11px; cursor: pointer;
+    }
+    .pw-cancel:hover { color: #94a3b8; }
+
+    /* ── SUMMARY SECTION ── */
+    #secSummary { display: none; border-color: #334155; }
+    #secSummary.visible { display: block; }
+    .sum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+    .sum-block {
+      background: #0d1825; border: 1px solid #1e293b;
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .sum-block-title {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.8px; color: #64748b; margin-bottom: 10px;
+    }
+    .sum-row { display: flex; gap: 8px; margin-bottom: 6px; font-size: 11px; line-height: 1.5; }
+    .sum-row:last-child { margin-bottom: 0; }
+    .sum-label { color: #475569; flex-shrink: 0; width: 90px; }
+    .sum-val { color: #94a3b8; word-break: break-all; }
+    .sum-val a { color: #60a5fa; }
+    .sum-section-list { list-style: none; }
+    .sum-section-list li {
+      display: flex; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid #1e293b; font-size: 11px; line-height: 1.6;
+    }
+    .sum-section-list li:last-child { border-bottom: none; }
+    .sum-sec-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+    }
+    .sum-sec-body { color: #94a3b8; }
+    .sum-sec-body strong { color: #cbd5e1; }
+    .history-list { list-style: none; }
+    .history-list li {
+      display: flex; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid #1e293b; font-size: 11px; line-height: 1.6;
+    }
+    .history-list li:last-child { border-bottom: none; }
+    .history-date { color: #475569; flex-shrink: 0; width: 80px; }
+    .history-entry { color: #94a3b8; }
+
+    /* ── LOCK BUTTON ── */
+    .lock-btn {
+      background: none; border: none; cursor: pointer;
+      color: #334155; font-size: 13px; padding: 0; transition: color 0.15s;
+    }
+    .lock-btn:hover { color: #64748b; }
   </style>
 </head>
 <body>
@@ -544,18 +634,166 @@
         </iframe>
       </div>
     </div>
+    <!-- ── SUMMARY (password-protected) ── -->
+    <div class="sec-card" id="secSummary">
+      <div class="sec-header">
+        <span class="sec-num" style="background:#334155;color:#94a3b8;">S</span>
+        <div>
+          <div class="sec-title">Page Summary &amp; Edit Log</div>
+          <div class="sec-sub">Internal reference — for admin use only</div>
+        </div>
+      </div>
+
+      <div class="sum-grid">
+        <div class="sum-block">
+          <div class="sum-block-title">Hosting</div>
+          <div class="sum-row"><span class="sum-label">Live URL</span><span class="sum-val"><a href="https://gxlim-a11y.github.io/bybit-vendor-activation/" target="_blank">gxlim-a11y.github.io/bybit-vendor-activation/</a></span></div>
+          <div class="sum-row"><span class="sum-label">GitHub Repo</span><span class="sum-val"><a href="https://github.com/gxlim-a11y/bybit-vendor-activation" target="_blank">github.com/gxlim-a11y/bybit-vendor-activation</a></span></div>
+          <div class="sum-row"><span class="sum-label">Push method</span><span class="sum-val">PAT embedded in remote URL temporarily, stripped after push</span></div>
+          <div class="sum-row"><span class="sum-label">Source file</span><span class="sum-val">Single file: index.html</span></div>
+        </div>
+        <div class="sum-block">
+          <div class="sum-block-title">Lark Bitable Backend</div>
+          <div class="sum-row"><span class="sum-label">Wiki</span><span class="sum-val"><a href="https://uponly.larksuite.com/wiki/ZviUwwZaEiFU8bkFEX7uDSHSsgg" target="_blank">Open Bitable ↗</a></span></div>
+          <div class="sum-row"><span class="sum-label">App token</span><span class="sum-val">MHTxbqYbSa05s9sEqgbuTrI1she</span></div>
+          <div class="sum-row"><span class="sum-label">Table ID</span><span class="sum-val">tbl2AhoL9JKldwaW</span></div>
+          <div class="sum-row"><span class="sum-label">Form view</span><span class="sum-val">vew4YaDe3B</span></div>
+          <div class="sum-row"><span class="sum-label">Public form</span><span class="sum-val"><a href="https://uponly.larksuite.com/share/base/shrusfQRbL7PtqwTahxzCfw1c2x" target="_blank">Open Form ↗</a></span></div>
+        </div>
+      </div>
+
+      <div class="sum-block" style="margin-bottom:14px;">
+        <div class="sum-block-title">Form Fields (Lark Bitable columns)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Vendor Name <span style="color:#ef4444;">*</span></span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Email 1 <span style="color:#ef4444;">*</span></span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Email 2</span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Email 3</span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Entry Type (AFPRT / PID) <span style="color:#ef4444;">*</span></span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Entry ID <span style="color:#ef4444;">*</span></span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Buy Type (eFTD / eFTT) <span style="color:#ef4444;">*</span></span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Notes</span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Submitted At (auto, hidden)</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#475569;">Each row = one AFPRT or PID entry. One vendor can submit multiple rows for multiple entries.</div>
+      </div>
+
+      <div class="sum-block" style="margin-bottom:14px;">
+        <div class="sum-block-title">Page Sections</div>
+        <ul class="sum-section-list">
+          <li>
+            <span class="sum-sec-num n1">1</span>
+            <div class="sum-sec-body"><strong>Campaign Goals</strong> — eFTT (preferred, green), eFTD (conditional, amber), CPM/CPC/CPI/Signup (not recommended, red). Core principle: high-quality users who deposit AND trade.</div>
+          </li>
+          <li>
+            <span class="sum-sec-num n2">2</span>
+            <div class="sum-sec-body"><strong>IO &amp; TnC</strong> — 4 action items: sign IO, confirm parallel start, share advertiser name, confirm agency/ad network setup. IO sent to gx.lim@bybit.com; 2–3 weeks for countersigned copy.</div>
+          </li>
+          <li>
+            <span class="sum-sec-num n3">3</span>
+            <div class="sum-sec-body"><strong>Key Confirmations</strong> — 6 required items: PID macro string requirement, fraud policy (KYC abuse / fake devices), campaign briefing &amp; launch flow (no launch without written confirmation), restricted markets (11 countries), billing validation (IS Primary Attribution = TRUE &amp; Retargeting = NO), attribution rules (signup = first-touch, eFTD = last-click).</div>
+          </li>
+          <li>
+            <span class="sum-sec-num n4">4</span>
+            <div class="sum-sec-body"><strong>IO Documents</strong> — Table with 4 download links: Global Bank, Global Crypto, EU Bank, EU Crypto. All link to Google Docs.</div>
+          </li>
+          <li>
+            <span class="sum-sec-num n5">5</span>
+            <div class="sum-sec-body"><strong>AppsFlyer Setup</strong> — AFPRT (vendor-owned, strongly recommended) vs PID (standard). Key rule: each AFPRT/PID maps to one buy type only. Register separate entries for eFTD and eFTT.</div>
+          </li>
+          <li>
+            <span class="sum-sec-num n6">6</span>
+            <div class="sum-sec-body"><strong>Submit Registration</strong> — Lark built-in Form view embedded via iFrame (no custom backend). Submissions appear directly in the Lark Bitable table above.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sum-block">
+        <div class="sum-block-title">Edit History</div>
+        <ul class="history-list">
+          <li>
+            <span class="history-date">2026-06-18</span>
+            <span class="history-entry">Initial build — 6-section vendor activation page created. Lark Bitable columns set up via API (Vendor Name, Email 1–3, Entry Type, Entry ID, Buy Type, Notes, Submitted At). Form view created (vew4YaDe3B), public sharing enabled. iFrame embedded in Section 6.</span>
+          </li>
+          <li>
+            <span class="history-date">2026-06-19</span>
+            <span class="history-entry">Cleaned up dead CSS (old custom form styles: field-input, entry-table, ack-section, btn-submit, toast, success-panel) and removed toast div — all leftover from original JS form replaced by Lark iFrame. Deployed to GitHub Pages.</span>
+          </li>
+          <li>
+            <span class="history-date">2026-06-19</span>
+            <span class="history-entry">Added password-protected Summary tab (this section). Password: 1234. Accessible via lock icon in footer.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
   </div><!-- /main -->
+
+  <!-- PASSWORD OVERLAY -->
+  <div class="pw-overlay" id="pwOverlay">
+    <div class="pw-box">
+      <div class="pw-icon">🔒</div>
+      <div class="pw-title">Admin Access</div>
+      <div class="pw-sub">Enter password to view page summary</div>
+      <input class="pw-input" id="pwInput" type="password" maxlength="20" placeholder="••••" autocomplete="off" />
+      <div class="pw-err" id="pwErr"></div>
+      <button class="pw-btn" onclick="checkPw()">Unlock</button>
+      <button class="pw-cancel" onclick="closePw()">Cancel</button>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <div class="site-footer">
     <div class="footer-left">Bybit Performance Partnership · For Partner Use Only</div>
-    <div class="footer-right">CPA Model · AppsFlyer · AFPRT / PID Activation</div>
+    <div class="footer-right" style="display:flex;align-items:center;gap:10px;">
+      <span>CPA Model · AppsFlyer · AFPRT / PID Activation</span>
+      <button class="lock-btn" onclick="openPw()" title="Admin">🔒</button>
+    </div>
   </div>
 
   <script>
     function scrollTo(id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    function openPw() {
+      document.getElementById('pwOverlay').classList.add('show');
+      setTimeout(() => document.getElementById('pwInput').focus(), 50);
+    }
+
+    function closePw() {
+      document.getElementById('pwOverlay').classList.remove('show');
+      document.getElementById('pwInput').value = '';
+      document.getElementById('pwErr').textContent = '';
+    }
+
+    function checkPw() {
+      const input = document.getElementById('pwInput');
+      const err   = document.getElementById('pwErr');
+      if (input.value === '1234') {
+        closePw();
+        const summary = document.getElementById('secSummary');
+        summary.classList.add('visible');
+        setTimeout(() => summary.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      } else {
+        err.textContent = 'Incorrect password.';
+        input.classList.add('error');
+        input.value = '';
+        setTimeout(() => input.classList.remove('error'), 400);
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && document.getElementById('pwOverlay').classList.contains('show')) {
+        checkPw();
+      }
+      if (e.key === 'Escape') closePw();
+    });
+
+    document.getElementById('pwOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closePw();
+    });
   </script>
 
 </body>
