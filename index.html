@@ -46,6 +46,7 @@
       border-bottom: 1px solid #1e293b;
       padding: 0 48px;
       display: flex; overflow-x: auto;
+      position: sticky; top: 0; z-index: 100;
     }
     .prog-step {
       display: flex; align-items: center; gap: 0;
@@ -730,6 +731,10 @@
           <li>
             <span class="history-date">2026-06-19</span>
             <span class="history-entry">Section 3 (Key Confirmations) updated to match Lark doc changes: (1) Fraud Policy — added "high eFTD volume with no subsequent trading activity" bullet; (2) Restricted Markets — added Australia, Indonesia, Hong Kong; removed United Kingdom (now 13 countries); (3) Attribution Rules — added eFTT: Last-click attribution.</span>
+          </li>
+          <li>
+            <span class="history-date">2026-06-19</span>
+            <span class="history-entry">Progress bar (steps 1–6) made sticky — stays fixed at top of viewport while user scrolls.</span>
           </li>
         </ul>
       </div>
