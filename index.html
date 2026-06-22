@@ -331,23 +331,10 @@
     .agree-overlay.show { display: flex; }
     .agree-box {
       background: #131b2e; border: 1px solid #334155;
-      border-radius: 14px; padding: 32px 36px; width: 400px;
+      border-radius: 14px; padding: 24px 28px; width: 540px;
     }
     .agree-box-title { font-size: 16px; font-weight: 700; color: #f8fafc; margin-bottom: 4px; }
-    .agree-box-sub { font-size: 11px; color: #64748b; margin-bottom: 20px; line-height: 1.6; }
-    .agree-field { margin-bottom: 14px; }
-    .agree-field label {
-      display: block; font-size: 10px; font-weight: 700; color: #64748b;
-      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px;
-    }
-    .agree-field input {
-      width: 100%; background: #0f1117; border: 1px solid #334155;
-      border-radius: 8px; padding: 10px 14px; color: #e2e8f0;
-      font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.15s;
-    }
-    .agree-field input:focus { border-color: #22c55e; }
-    .agree-field input.error { border-color: #ef4444; }
-    .agree-err { font-size: 11px; color: #fca5a5; min-height: 16px; margin-bottom: 12px; }
+    .agree-box-sub { font-size: 11px; color: #64748b; margin-bottom: 16px; line-height: 1.6; }
     .agree-actions { display: flex; gap: 10px; }
     .agree-submit {
       flex: 1; padding: 11px;
@@ -662,17 +649,9 @@
 
       <div class="agree-confirmed" id="agreeConfirmed">
         <div class="agree-confirmed-head">✅ Agreement Confirmed</div>
-        <div class="agree-confirmed-grid">
+        <div class="agree-confirmed-grid" style="grid-template-columns:1fr;">
           <div class="agree-confirmed-cell">
-            <div class="cell-label">Agreed By</div>
-            <div class="cell-val" id="confirmedName">—</div>
-          </div>
-          <div class="agree-confirmed-cell">
-            <div class="cell-label">Email</div>
-            <div class="cell-val" id="confirmedEmail">—</div>
-          </div>
-          <div class="agree-confirmed-cell" style="grid-column:1/-1;">
-            <div class="cell-label">Date &amp; Time</div>
+            <div class="cell-label">Agreed At</div>
             <div class="cell-val" id="confirmedDate">—</div>
           </div>
         </div>
@@ -912,7 +891,11 @@
           </li>
           <li>
             <span class="history-date">2026-06-22</span>
-            <span class="history-entry">Section 6 pre-fill reminder: removed "Agreed By Name" and "Agreed Email" rows — only "Agreed At" remains. Updated summary form fields list accordingly.</span>
+            <span class="history-entry">Section 6 pre-fill reminder: removed "Agreed By Name" and "Agreed Email" rows — only "Agreed At" remains. Updated summary form fields list accordingly. Also removed corresponding columns from Lark Bitable table tbl2AhoL9JKldwaW.</span>
+          </li>
+          <li>
+            <span class="history-date">2026-06-22</span>
+            <span class="history-entry">Section 3 agree flow: replaced local name/email modal with embedded Lark form (Agreement Log table, tblvW2LI9NFRbTgq, form view vewEKrDgKE). When user clicks "I agree", a modal opens with the Lark form iFrame — user submits name + email directly to Lark Bitable, then clicks "Done" to unlock Sections 4–6. Agreement confirmed card now shows only timestamp.</span>
           </li>
         </ul>
       </div>
@@ -924,19 +907,16 @@
   <!-- AGREE MODAL -->
   <div class="agree-overlay" id="agreeOverlay">
     <div class="agree-box">
-      <div class="agree-box-title">Confirm Your Agreement</div>
-      <div class="agree-box-sub">By submitting, you confirm that you have read and agree to all 6 Key Confirmation points in Section 3.</div>
-      <div class="agree-field">
-        <label>Full Name <span style="color:#ef4444;">*</span></label>
-        <input id="agreeName" type="text" placeholder="e.g. John Smith" autocomplete="name" />
-      </div>
-      <div class="agree-field">
-        <label>Email Address <span style="color:#ef4444;">*</span></label>
-        <input id="agreeEmail" type="email" placeholder="e.g. john@company.com" autocomplete="email" />
-      </div>
-      <div class="agree-err" id="agreeErr"></div>
+      <div class="agree-box-title">Record Your Agreement</div>
+      <div class="agree-box-sub">Fill in your name and email in the form below, then click Submit. Once done, click <strong style="color:#4ade80;">Done</strong> to continue.</div>
+      <iframe
+        src="https://uponly.larksuite.com/share/base/shrus7afPLrcdtVgu5U3qb1yrqf"
+        style="width:100%; height:420px; border:none; border-radius:8px; margin-bottom:14px; display:block;"
+        allow="clipboard-write"
+        title="Agreement Form">
+      </iframe>
       <div class="agree-actions">
-        <button class="agree-submit" onclick="submitAgreement()">Confirm &amp; Agree</button>
+        <button class="agree-submit" onclick="doneAgreement()">✅ Done — I've submitted</button>
         <button class="agree-cancel-btn" onclick="closeAgreeModal()">Cancel</button>
       </div>
     </div>
@@ -1027,42 +1007,20 @@
 
     function openAgreeModal() {
       document.getElementById('agreeOverlay').classList.add('show');
-      setTimeout(() => document.getElementById('agreeName').focus(), 50);
     }
 
     function closeAgreeModal() {
       document.getElementById('agreeOverlay').classList.remove('show');
-      document.getElementById('agreeErr').textContent = '';
-      ['agreeName','agreeEmail'].forEach(id => {
-        document.getElementById(id).classList.remove('error');
-      });
     }
 
-    function submitAgreement() {
-      const nameEl  = document.getElementById('agreeName');
-      const emailEl = document.getElementById('agreeEmail');
-      const err     = document.getElementById('agreeErr');
-      const name    = nameEl.value.trim();
-      const email   = emailEl.value.trim();
-
-      [nameEl, emailEl].forEach(el => el.classList.remove('error'));
-      err.textContent = '';
-
-      if (!name)  { err.textContent = 'Please enter your full name.';  nameEl.classList.add('error');  return; }
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        err.textContent = 'Please enter a valid email address.';
-        emailEl.classList.add('error'); return;
-      }
-
+    function doneAgreement() {
       closeAgreeModal();
 
       const now = new Date();
       const dateStr = now.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })
                     + ' · ' + now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
 
-      document.getElementById('confirmedName').textContent  = name;
-      document.getElementById('confirmedEmail').textContent = email;
-      document.getElementById('confirmedDate').textContent  = dateStr;
+      document.getElementById('confirmedDate').textContent = dateStr;
 
       const card = document.getElementById('agreeConfirmed');
       card.classList.add('show');
@@ -1080,15 +1038,8 @@
       });
       document.getElementById('sec3-barrier').classList.add('unlocked');
 
-      // Populate Section 6 pre-fill reminder
-      document.getElementById('prefillDate').textContent  = dateStr;
+      document.getElementById('prefillDate').textContent = dateStr;
     }
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && document.getElementById('agreeOverlay').classList.contains('show')) {
-        submitAgreement();
-      }
-    });
 
     document.getElementById('agreeOverlay').addEventListener('click', function(e) {
       if (e.target === this) closeAgreeModal();
