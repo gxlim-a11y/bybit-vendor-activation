@@ -757,15 +757,6 @@
           <div class="sec-sub">Fill in the form below — your submission goes directly into our Bybit tracker</div>
         </div>
       </div>
-      <div class="prefill-box">
-        <div class="prefill-title">Your Section 3 Agreement — enter this in the form below</div>
-        <div class="prefill-row">
-          <span class="prefill-key">Agreed At</span>
-          <span class="prefill-val" id="prefillDate">—</span>
-          <button class="copy-btn" onclick="copyPrefill('prefillDate',this)">Copy</button>
-        </div>
-        <div style="margin-top:8px;font-size:10px;color:#166534;">Paste this into the matching field at the bottom of the form below.</div>
-      </div>
       <div style="font-size:11px;color:#475569;margin-bottom:16px;padding:0 2px;">
         Each row = one AFPRT or PID entry. If you have multiple entries, submit this form once per entry.
         For questions contact <a href="mailto:gx.lim@bybit.com">gx.lim@bybit.com</a>
@@ -818,7 +809,6 @@
           <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Entry ID <span style="color:#ef4444;">*</span></span>
           <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Buy Type (eFTD / eFTT) <span style="color:#ef4444;">*</span></span>
           <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Notes</span>
-          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Agreed At</span>
           <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Submitted At (auto, hidden)</span>
         </div>
         <div style="margin-top:8px;font-size:11px;color:#475569;">Each row = one AFPRT or PID entry. One vendor can submit multiple rows for multiple entries.</div>
@@ -895,7 +885,7 @@
           </li>
           <li>
             <span class="history-date">2026-06-22</span>
-            <span class="history-entry">Section 3 agree flow: replaced local name/email modal with embedded Lark form (Agreement Log table, tblvW2LI9NFRbTgq, form view vewEKrDgKE). When user clicks "I agree", a modal opens with the Lark form iFrame — user submits name + email directly to Lark Bitable, then clicks "Done" to unlock Sections 4–6. Agreement confirmed card now shows only timestamp.</span>
+            <span class="history-entry">Section 3 agree flow: replaced local name/email modal with embedded Lark form (Agreement Log table, tblvW2LI9NFRbTgq, form view vewEKrDgKE). When user clicks "I agree", a modal opens with the Lark form iFrame — user submits name + email directly to Lark Bitable, then clicks "Done" to unlock Sections 4–6. Agreement confirmed card now shows only timestamp. Removed "Agreed At" column from both Agreement Log and vendor registration tables. Removed Section 6 pre-fill reminder box entirely.</span>
           </li>
         </ul>
       </div>
@@ -1038,7 +1028,6 @@
       });
       document.getElementById('sec3-barrier').classList.add('unlocked');
 
-      document.getElementById('prefillDate').textContent = dateStr;
     }
 
     document.getElementById('agreeOverlay').addEventListener('click', function(e) {
