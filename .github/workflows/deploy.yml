@@ -1,0 +1,24 @@
+name: Deploy to public site
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Push index.html to public repo
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          git config --global user.email "deploy@github.com"
+          git config --global user.name "Deploy Bot"
+          git clone https://x-access-token:${DEPLOY_TOKEN}@github.com/gxlim-a11y/bybit-vendor-activation-site.git public-repo
+          cp index.html public-repo/index.html
+          cd public-repo
+          git add index.html
+          git diff --staged --quiet || git commit -m "Deploy $(date +'%Y-%m-%d %H:%M')"
+          git push
