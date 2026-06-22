@@ -94,9 +94,10 @@
     .n1 { background: #3b82f6; color: #fff; }
     .n2 { background: #f59e0b; color: #fff; }
     .n3 { background: #a855f7; color: #fff; }
-    .n4 { background: #22c55e; color: #fff; }
-    .n5 { background: #0ea5e9; color: #fff; }
-    .n6 { background: #ef4444; color: #fff; }
+    .n4 { background: #f97316; color: #fff; }
+    .n5 { background: #22c55e; color: #fff; }
+    .n6 { background: #0ea5e9; color: #fff; }
+    .n7 { background: #ef4444; color: #fff; }
 
     /* ── GOAL CARDS ── */
     .goal-row { display: flex; gap: 12px; margin-bottom: 14px; }
@@ -444,19 +445,25 @@
     </div>
     <div class="prog-step">
       <button class="prog-btn" onclick="scrollTo('sec4')">
-        <span class="prog-num">4</span> IO Documents
+        <span class="prog-num">4</span> Payout Price
       </button>
       <span class="prog-arrow">›</span>
     </div>
     <div class="prog-step">
       <button class="prog-btn" onclick="scrollTo('sec5')">
-        <span class="prog-num">5</span> AppsFlyer Setup
+        <span class="prog-num">5</span> IO Documents
       </button>
       <span class="prog-arrow">›</span>
     </div>
     <div class="prog-step">
       <button class="prog-btn" onclick="scrollTo('sec6')">
-        <span class="prog-num">6</span> Submit Registration
+        <span class="prog-num">6</span> AppsFlyer Setup
+      </button>
+      <span class="prog-arrow">›</span>
+    </div>
+    <div class="prog-step">
+      <button class="prog-btn" onclick="scrollTo('sec7')">
+        <span class="prog-num">7</span> Submit Registration
       </button>
     </div>
   </div>
@@ -664,10 +671,63 @@
       🔒 Please agree to the terms in Section 3 to continue
     </div>
 
-    <!-- ── SECTION 4: IO DOCUMENTS ── -->
+    <!-- ── SECTION 4: PAYOUT PRICE ── -->
     <div class="sec-card sec-locked" id="sec4">
       <div class="sec-header">
         <span class="sec-num n4">4</span>
+        <div>
+          <div class="sec-title">Payout Price</div>
+          <div class="sec-sub">CPA payouts by region — confirm your App type before proceeding</div>
+        </div>
+      </div>
+      <div style="background:#1a0808;border:1px solid #7f1d1d;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:11px;color:#fca5a5;line-height:1.6;">
+        ⚠️ <strong>If the conversion comes from the wrong App, Finance will not proceed with payment.</strong> Check your App type carefully.
+      </div>
+      <table class="io-table">
+        <thead>
+          <tr>
+            <th>Region</th>
+            <th>App</th>
+            <th style="color:#93c5fd;">eFTD Payout</th>
+            <th style="color:#4ade80;">eFTT Payout</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Africa</td><td>BYBIT</td><td>$5.00</td><td>—</td></tr>
+          <tr><td>Bahrain</td><td>BYBIT</td><td>$5.00</td><td>—</td></tr>
+          <tr><td>Brazil</td><td>BYBIT</td><td>$5.00</td><td>—</td></tr>
+          <tr><td>CIS</td><td>BYBIT</td><td>$19.84</td><td>—</td></tr>
+          <tr><td>Czech &amp; Slovak</td><td>EU</td><td>$7.23</td><td>—</td></tr>
+          <tr><td>France</td><td>EU</td><td>$3.31</td><td>—</td></tr>
+          <tr><td>Georgia</td><td>BYBIT</td><td>$8.49</td><td>—</td></tr>
+          <tr><td>Germany</td><td>EU</td><td>$0.66</td><td>—</td></tr>
+          <tr><td>India</td><td>BYBIT</td><td>$8.19</td><td>—</td></tr>
+          <tr><td>Italy</td><td>EU</td><td>$1.17</td><td>—</td></tr>
+          <tr><td>Kazakhstan</td><td>BYBIT</td><td>$7.92</td><td>—</td></tr>
+          <tr><td>Korea</td><td>BYBIT</td><td>$85.02</td><td>—</td></tr>
+          <tr><td>Latam</td><td>BYBIT</td><td>$8.18</td><td>—</td></tr>
+          <tr><td>Mandarin</td><td>BYBIT</td><td>$83.62</td><td>—</td></tr>
+          <tr><td>MENA</td><td>BYBIT</td><td>$22.40</td><td>—</td></tr>
+          <tr><td>Mini-EU</td><td>EU</td><td>$1.29</td><td>—</td></tr>
+          <tr><td>Mini-Global</td><td>BYBIT</td><td>$107.91</td><td>—</td></tr>
+          <tr><td>Netherlands</td><td>EU</td><td>$4.80</td><td>—</td></tr>
+          <tr><td>Nordics</td><td>EU</td><td>$0.70</td><td>—</td></tr>
+          <tr><td>Pakistan</td><td>BYBIT</td><td>$18.15</td><td>—</td></tr>
+          <tr><td>Poland</td><td>EU</td><td>$5.88</td><td>—</td></tr>
+          <tr><td>Portugal</td><td>EU</td><td>$0.50</td><td>—</td></tr>
+          <tr><td>SEA</td><td>BYBIT</td><td>$41.32</td><td>—</td></tr>
+          <tr><td>Spain</td><td>EU</td><td>$3.18</td><td>—</td></tr>
+          <tr><td>Turkey</td><td>BYBIT</td><td>$41.07</td><td>—</td></tr>
+          <tr><td>United Kingdom</td><td>BYBIT</td><td>$0.28</td><td>—</td></tr>
+          <tr><td>Vietnam</td><td>BYBIT</td><td>$32.46</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── SECTION 5: IO DOCUMENTS ── -->
+    <div class="sec-card sec-locked" id="sec5">
+      <div class="sec-header">
+        <span class="sec-num n5">5</span>
         <div>
           <div class="sec-title">IO Documents</div>
           <div class="sec-sub">Download the correct IO based on your region and payment method</div>
@@ -709,10 +769,10 @@
       </div>
     </div>
 
-    <!-- ── SECTION 5: APPSFLYER SETUP ── -->
-    <div class="sec-card sec-locked" id="sec5">
+    <!-- ── SECTION 6: APPSFLYER SETUP ── -->
+    <div class="sec-card sec-locked" id="sec6">
       <div class="sec-header">
-        <span class="sec-num n5">5</span>
+        <span class="sec-num n6">6</span>
         <div>
           <div class="sec-title">AppsFlyer Setup</div>
           <div class="sec-sub">Choose your setup type — each AFPRT/PID is tied to one buy type only</div>
@@ -748,10 +808,10 @@
       </div>
     </div>
 
-    <!-- ── SECTION 6: REGISTRATION FORM ── -->
-    <div class="sec-card sec-locked" id="sec6" style="border-color:#1e3a5f; padding-bottom: 0;">
+    <!-- ── SECTION 7: REGISTRATION FORM ── -->
+    <div class="sec-card sec-locked" id="sec7" style="border-color:#1e3a5f; padding-bottom: 0;">
       <div class="sec-header" style="margin-bottom:8px;">
-        <span class="sec-num n6">6</span>
+        <span class="sec-num n7">7</span>
         <div>
           <div class="sec-title">Submit Registration</div>
           <div class="sec-sub">Fill in the form below — your submission goes directly into our Bybit tracker</div>
@@ -842,14 +902,18 @@
           </li>
           <li>
             <span class="sum-sec-num n4">4</span>
-            <div class="sum-sec-body"><strong>IO Documents</strong> — 4 download links: Global Bank, Global Crypto, EU Bank, EU Crypto (all Google Docs). Note: source doc also includes Payout Price table by region — not yet on page.</div>
+            <div class="sum-sec-body"><strong>Payout Price</strong> — CPA payout table by region (27 markets). Columns: Region, App (BYBIT or EU), eFTD Payout, eFTT Payout. Warning: wrong App type = Finance will not pay. eFTT payouts TBD (shown as —).</div>
           </li>
           <li>
             <span class="sum-sec-num n5">5</span>
-            <div class="sum-sec-body"><strong>AppsFlyer Setup</strong> — AFPRT (vendor-owned, strongly recommended, 1–2 day processing) vs PID (standard, ownership email confirmation required). Each AFPRT/PID maps to one buy type only — register separate entries for eFTD and eFTT.</div>
+            <div class="sum-sec-body"><strong>IO Documents</strong> — 4 download links: Global Bank, Global Crypto, EU Bank, EU Crypto (all Google Docs). Note: IO payment details must match invoice payment details.</div>
           </li>
           <li>
             <span class="sum-sec-num n6">6</span>
+            <div class="sum-sec-body"><strong>AppsFlyer Setup</strong> — AFPRT (vendor-owned, strongly recommended, 1–2 day processing) vs PID (standard, ownership email confirmation required). Each AFPRT/PID maps to one buy type only — register separate entries for eFTD and eFTT.</div>
+          </li>
+          <li>
+            <span class="sum-sec-num n7">7</span>
             <div class="sum-sec-body"><strong>Submit Registration</strong> — Google Form embedded (no Lark account required). Fields: Vendor Name, Email 1–3, Entry Type, Entry ID, Buy Type, Notes. One submission per AFPRT/PID entry.</div>
           </li>
         </ul>
@@ -880,7 +944,7 @@
           </li>
           <li>
             <span class="history-date">2026-06-22</span>
-            <span class="history-entry">Source doc (Vendor Onboarding Automation wiki) updated by user: sections renumbered to correlate with site structure (1=Goals, 2=IO Setup, 3=Key Confirmations, 4=IO Docs, 5=AppsFlyer). New Payout Price table added to source doc (eFTD + eFTT by region/app) — not yet reflected on page.</span>
+            <span class="history-entry">Source doc (Vendor Onboarding Automation wiki) updated by user: sections renumbered to correlate with site structure. New Payout Price table added to source doc (eFTD + eFTT by region/app). Page restructured to 7 sections — new Section 4 (Payout Price) inserted after Key Confirmations; IO Documents → 5, AppsFlyer → 6, Registration → 7. eFTT payouts shown as TBD (—).</span>
           </li>
         </ul>
       </div>
@@ -962,7 +1026,7 @@
       }
     });
 
-    const SECTIONS = ['sec1','sec2','sec3','sec4','sec5','sec6'];
+    const SECTIONS = ['sec1','sec2','sec3','sec4','sec5','sec6','sec7'];
 
     function updateProgress() {
       const offset = document.querySelector('.progress-bar').offsetHeight + 16;
@@ -1018,7 +1082,7 @@
       btn.style.cursor = 'default';
 
       agreed = true;
-      ['sec4','sec5','sec6'].forEach(id => {
+      ['sec4','sec5','sec6','sec7'].forEach(id => {
         document.getElementById(id).classList.remove('sec-locked');
       });
       document.getElementById('sec3-barrier').classList.add('unlocked');
