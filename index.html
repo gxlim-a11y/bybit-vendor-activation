@@ -779,23 +779,13 @@
         </div>
       </div>
       <div class="prefill-box">
-        <div class="prefill-title">Your Section 3 Agreement — enter these in the form below</div>
-        <div class="prefill-row">
-          <span class="prefill-key">Agreed By Name</span>
-          <span class="prefill-val" id="prefillName">—</span>
-          <button class="copy-btn" onclick="copyPrefill('prefillName',this)">Copy</button>
-        </div>
-        <div class="prefill-row">
-          <span class="prefill-key">Agreed Email</span>
-          <span class="prefill-val" id="prefillEmail">—</span>
-          <button class="copy-btn" onclick="copyPrefill('prefillEmail',this)">Copy</button>
-        </div>
+        <div class="prefill-title">Your Section 3 Agreement — enter this in the form below</div>
         <div class="prefill-row">
           <span class="prefill-key">Agreed At</span>
           <span class="prefill-val" id="prefillDate">—</span>
           <button class="copy-btn" onclick="copyPrefill('prefillDate',this)">Copy</button>
         </div>
-        <div style="margin-top:8px;font-size:10px;color:#166534;">Paste these into the matching fields at the bottom of the form below.</div>
+        <div style="margin-top:8px;font-size:10px;color:#166534;">Paste this into the matching field at the bottom of the form below.</div>
       </div>
       <div style="font-size:11px;color:#475569;margin-bottom:16px;padding:0 2px;">
         Each row = one AFPRT or PID entry. If you have multiple entries, submit this form once per entry.
@@ -849,6 +839,7 @@
           <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Entry ID <span style="color:#ef4444;">*</span></span>
           <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Buy Type (eFTD / eFTT) <span style="color:#ef4444;">*</span></span>
           <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Notes</span>
+          <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Agreed At</span>
           <span style="background:#0f1117;border:1px solid #1e293b;border-radius:6px;padding:3px 10px;font-size:11px;color:#94a3b8;">Submitted At (auto, hidden)</span>
         </div>
         <div style="margin-top:8px;font-size:11px;color:#475569;">Each row = one AFPRT or PID entry. One vendor can submit multiple rows for multiple entries.</div>
@@ -918,6 +909,10 @@
           <li>
             <span class="history-date">2026-06-19</span>
             <span class="history-entry">Agreement data linked to Lark Bitable: added "Agreed By Name" (required) and "Agreed Email" (required) columns to tbl2AhoL9JKldwaW and made them visible in form view vew4YaDe3B. Section 6 now shows a green pre-fill reminder box with Copy buttons for name, email, and agreed-at date — user pastes these into the matching Lark form fields on submission.</span>
+          </li>
+          <li>
+            <span class="history-date">2026-06-22</span>
+            <span class="history-entry">Section 6 pre-fill reminder: removed "Agreed By Name" and "Agreed Email" rows — only "Agreed At" remains. Updated summary form fields list accordingly.</span>
           </li>
         </ul>
       </div>
@@ -1086,8 +1081,6 @@
       document.getElementById('sec3-barrier').classList.add('unlocked');
 
       // Populate Section 6 pre-fill reminder
-      document.getElementById('prefillName').textContent  = name;
-      document.getElementById('prefillEmail').textContent = email;
       document.getElementById('prefillDate').textContent  = dateStr;
     }
 
