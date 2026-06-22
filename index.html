@@ -896,15 +896,17 @@
 
   <!-- AGREE MODAL -->
   <div class="agree-overlay" id="agreeOverlay">
-    <div class="agree-box">
+    <div class="agree-box" style="width:420px;">
       <div class="agree-box-title">Record Your Agreement</div>
-      <div class="agree-box-sub">Fill in your name and email in the form below, then click Submit. Once done, click <strong style="color:#4ade80;">Done</strong> to continue.</div>
-      <iframe
-        src="https://uponly.larksuite.com/share/base/shrus7afPLrcdtVgu5U3qb1yrqf"
-        style="width:100%; height:420px; border:none; border-radius:8px; margin-bottom:14px; display:block;"
-        allow="clipboard-write"
-        title="Agreement Form">
-      </iframe>
+      <div class="agree-box-sub">Click the button below to open the agreement form in a new tab. Fill in your details and submit, then come back here and click <strong style="color:#4ade80;">Done</strong> to continue.</div>
+      <a href="https://uponly.larksuite.com/share/base/shrus7afPLrcdtVgu5U3qb1yrqf" target="_blank"
+        style="display:flex; align-items:center; justify-content:center; gap:8px;
+               width:100%; padding:12px; margin-bottom:14px; border-radius:8px;
+               background:#0a1827; border:1.5px solid #3b82f6; color:#93c5fd;
+               font-size:13px; font-weight:700; text-decoration:none; transition:opacity 0.15s;"
+        onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+        ↗ Open Agreement Form
+      </a>
       <div class="agree-actions">
         <button class="agree-submit" onclick="doneAgreement()">✅ Done — I've submitted</button>
         <button class="agree-cancel-btn" onclick="closeAgreeModal()">Cancel</button>
